@@ -49,13 +49,6 @@ set_cursor:
 	mov al, bh
 	out dx, al
 
-    mov dl, [putc.last_format]
-    and dl, 0x0f
-    mov dh, [ebx * 2 + 0xb8001]
-    and dh, 0xf0
-    or dl, dh
-    mov byte [ebx * 2 + 0xb8001], dl
-
     pop ebx
 
     mov esp, ebp
@@ -93,6 +86,8 @@ putc:
     je .backspace
     cmp bl, 0x09
     je .tab
+    cmp bl, 0x00
+    je .return
 .printable:
     push ebx
     mov cx, word [cursor]
@@ -282,14 +277,14 @@ puthw:
     ret
 
 main:
-    push 0x0a
+    push 0x0e
     push msg
     call puts
     add esp, 8
 
     call kernel
 
-    push 0x0a
+    push 0x0e
     push debug
     call puts
     add esp, 8

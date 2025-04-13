@@ -14,7 +14,7 @@ QEMU-DFLAGS:=-drive file=build/os.img,if=floppy,format=raw
 QEMU-MFLAGS:=-name NS-Au
 
 KERNEL-SOURCES:=$(wildcard src/kernel/*.c)
-KERNEL-OBJECTS:=$(patsubst %.c,%.o,$(KERNEL-SOURCES))
+KERNEL-OBJECTS:=$(patsubst src/kernel/%.c,build/%.o,$(KERNEL-SOURCES))
 
 .PHONY: default build always clean bootloader kernel image test
 
@@ -40,7 +40,7 @@ build/kernel.bin: build/kernel_entry.o $(KERNEL-OBJECTS)
 build/kernel_entry.o: src/kernel/entry.asm
 	$(ASM) $< $(ASM-LFLAGS) -o $@
 
-%.o: %.c
+build/%.o: src/kernel/%.c
 	$(CC) $(CC-LFLAGS) -c $< -o $@
 
 always:
