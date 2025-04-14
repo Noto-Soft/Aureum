@@ -10,7 +10,10 @@ void kernel(void)
     uint8_t key;
 
     while ((key = wait_key()) != 0x01) {
-        putc(convert_scancode_to_ascii(key), 0x07);
+        if (convert_scancode_to_ascii(key) == 0x0a)
+            puts("\r\n", 0x07);
+        else
+            putc(convert_scancode_to_ascii(key), 0x07);
     }
 
     puts("\r\nSalutations, Planet in which I reside on!\r\n", 0x0b);
