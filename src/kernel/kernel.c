@@ -12,6 +12,8 @@ void kernel(void)
     while ((key = wait_key()) != 0x01) {
         if (convert_scancode_to_ascii(key) == 0x0a)
             puts("\r\n", 0x07);
+        else if (convert_scancode_to_ascii(key) == 0x08)
+            puts("\b \b", 0x07);
         else
             putc(convert_scancode_to_ascii(key), 0x07);
     }
