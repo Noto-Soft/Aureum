@@ -60,8 +60,8 @@ get_cursor:
     pop ebp
     ret
 
-global putc
-putc:
+global putcf
+putcf:
     push ebp
     mov ebp, esp
     
@@ -161,8 +161,8 @@ putc:
     ret
 .last_format: db 0x07
 
-global puts
-puts:
+global putsf
+putsf:
     push ebp
     mov ebp, esp
 
@@ -181,7 +181,7 @@ puts:
     push eax
     movzx eax, bl
     push eax
-    call putc
+    call putcf
     add esp, 8
     jmp .loop
 .return:
@@ -208,8 +208,8 @@ wait_key:
     pop ebp
     ret
 
-global puthb
-puthb:
+global puthbf
+puthbf:
     push ebp
     mov ebp, esp
 
@@ -223,7 +223,7 @@ puthb:
     push ebx
     movzx eax, byte [hex_digits + edx]
     push eax
-    call putc
+    call putcf
     add sp, 4
     pop ebx
     movzx edx, byte [ebp + 8]
@@ -231,7 +231,7 @@ puthb:
     push ebx
     movzx eax, byte [hex_digits + edx]
     push eax
-    call putc
+    call putcf
     add sp, 4
     pop ebx
 
@@ -241,8 +241,8 @@ puthb:
     pop ebp
     ret
 
-global puthw
-puthw:
+global puthwf
+puthwf:
     push ebp
     mov ebp, esp
 
@@ -254,7 +254,7 @@ puthw:
     push eax
     movzx eax, dh
     push eax
-    call puthb
+    call puthbf
     add sp, 8
     pop dx
     push dx
@@ -262,9 +262,22 @@ puthw:
     push eax
     movzx eax, dl
     push eax
-    call puthb
+    call puthbf
     add sp, 8
     pop dx
+
+    mov esp, ebp
+    pop ebp
+    ret
+
+global format_tty
+format_tty:
+    push ebp
+    mov ebp, esp
+
+    mov ah, [ebp + 8]
+
+    mov [putcf.last_format], ah
 
     mov esp, ebp
     pop ebp

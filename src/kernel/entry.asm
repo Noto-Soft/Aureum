@@ -2,7 +2,7 @@ bits 32
 
 extern kernel
 
-extern puts
+extern putsf
 
 global start
 start:
@@ -11,14 +11,14 @@ start:
 main:
     push 0x0e
     push msg
-    call puts
+    call putsf
     add esp, 8
 
     call kernel
 
     push 0x0e
     push debug
-    call puts
+    call putsf
     add esp, 8
 
     ret
