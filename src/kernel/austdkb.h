@@ -13,3 +13,5 @@ const char ascii_table[256] = {
     'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/',\
     0, 0, 0, ' '
 };
+
+extern uint8_t wait_key();

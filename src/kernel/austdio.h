@@ -14,5 +14,3 @@ extern void putc(unsigned char character, uint8_t format);
 extern void puts(const char* str, uint8_t format);
 extern void puthb(uint8_t byte, uint8_t format);
 extern void puthw(uint16_t word, uint8_t format);
-
-extern uint8_t wait_key();
