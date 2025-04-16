@@ -3,9 +3,11 @@
 
 void kernel(void)
 {
-    putsf("Greetings, Planet in which I reside on!\r\n",0x0f);
+    format_tty(0x0f);
+    puts("Greetings, Planet in which I reside on!\r\n");
 
-    putsf("hey just so you know,,, you're in input mode ^^\r\npress esc to exit the input mode\r\nOK thanks for listening :)\r\n",0x08);
+    format_tty(0x08);
+    puts("hey just so you know,,, you're in input mode ^^\r\npress esc to exit the input mode\r\nOK thanks for listening :)\r\n");
 
     uint8_t key;
 
@@ -37,5 +39,6 @@ void kernel(void)
         }
     }
 
-    putsf("\r\nSalutations, Planet in which I reside on!\r\n", 0x0b);
+    format_tty(0x05);
+    puts("\r\nSalutations, Planet in which I reside on!\r\n");
 }

@@ -10,8 +10,6 @@ typedef struct
 
 extern void set_cursor(uint8_t row, uint8_t column);
 extern textcursor_t* get_cursor(void);
-extern void putcf(unsigned char character, uint8_t format);
-extern void putsf(const char* str, uint8_t format);
 extern void puthbf(uint8_t byte, uint8_t format);
 extern void puthwf(uint16_t word, uint8_t format);
 
