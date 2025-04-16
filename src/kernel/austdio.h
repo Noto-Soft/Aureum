@@ -14,3 +14,9 @@ extern void putcf(unsigned char character, uint8_t format);
 extern void putsf(const char* str, uint8_t format);
 extern void puthbf(uint8_t byte, uint8_t format);
 extern void puthwf(uint16_t word, uint8_t format);
+
+extern void format_tty(uint8_t format);
+extern uint8_t get_last_format(void);
+
+void putc(unsigned char character);
+void puts(const char* str);

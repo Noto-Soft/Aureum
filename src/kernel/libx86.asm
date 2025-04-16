@@ -283,6 +283,17 @@ format_tty:
     pop ebp
     ret
 
+global get_last_format
+get_last_format:
+    push ebp
+    mov ebp, esp
+
+    movzx eax, byte [putcf.last_format]
+
+    mov esp, ebp
+    pop ebp
+    ret
+
 section .data
 cursor: db 0, 0
 hex_digits: db "0123456789ABCDEF"
