@@ -6,6 +6,11 @@ void kernel(void)
     format_tty(0x0f);
     puts("Greetings, Planet in which I reside on!\r\n");
 
+    format_tty(0x02);
+    puts("0x");
+    puthb(0x42);
+    puts("\r\n");
+
     format_tty(0x08);
     puts("hey just so you know,,, you're in input mode ^^\r\npress esc to exit the input mode\r\nOK thanks for listening :)\r\n");
 

@@ -1,11 +1,21 @@
 #include "austdio.h"
+#include "aumath.h"
+#include <stdint.h>
 
-void putc(unsigned char character)
+void puthb(uint8_t byte)
 {
-    putcf(character, get_last_format());
+    uint8_t high = byte >> 4;
+    uint8_t low = byte & 0x0f;
+    high = min(high, 15);
+    low = min(low, 15);
+    putc('0' + high);
+    putc('0' + low);
 }
 
-void puts(const char* str)
+void puthw(uint16_t word)
 {
-    putsf(str, get_last_format());
+    uint8_t high = word >> 8;
+    uint8_t low = word & 0xff;
+    puthb(high);
+    puthb(low);
 }
