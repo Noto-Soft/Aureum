@@ -4,6 +4,8 @@
 
 #define VGA_MEMORY ((uint16_t*)0xb8000)
 
+#define putbr() {putc('\r'); putc('\n');}
+
 typedef struct
 {
     uint8_t col;
@@ -15,8 +17,6 @@ void puthw(uint16_t word);
 void puthd(uint32_t dword);
 
 void clear_vga(uint8_t color);
-
-void putbr(void);
 
 /*
     libx86 functions

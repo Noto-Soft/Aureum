@@ -36,8 +36,3 @@ void clear_vga(uint8_t color)
     for (int i = 0; i < 80 * 25; i++) VGA_MEMORY[i] = blank;
     format_tty(color);
 }
-
-void putbr(void)
-{
-    putc('\r'); putc('\n');
-}

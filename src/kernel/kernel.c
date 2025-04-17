@@ -1,12 +1,10 @@
 #include "austdio.h"
 #include "austdkb.h"
+#include "audelay.h"
+#include "aumath.h"
 
-void kernel(void)
+uint32_t mem_test(void)
 {
-    format_tty(0x07);
-
-    puts("Aureum Kernel is testing memory\r\n");
-
     uint32_t mem_size;
     uint8_t* address = (uint8_t*)0x100000;
 
@@ -25,6 +23,28 @@ void kernel(void)
         mem_size++;
     }
 
+    return mem_size;
+}
+
+void kernel(void)
+{
+    format_tty(0x07);
+
+    puts("Aureum Kernel is testing memory\r\n");
+
+    uint32_t mem_size = mem_test();
+
     puthd(mem_size);
     puts("\r\nDone!\r\n");
+
+    putbr();
+
+    puts("Au$ ");
+    
+    uint8_t key;
+    while ((key = wait_key()) != 0x01) {
+        putc(convert_scancode_to_ascii(key));
+    }
+
+    puts("\r\nGoodbye\r\n");
 }
