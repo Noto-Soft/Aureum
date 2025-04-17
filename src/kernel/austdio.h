@@ -2,6 +2,8 @@
 
 #include <stdint.h>
 
+#define VGA_MEMORY ((uint16_t*)0xb8000)
+
 typedef struct
 {
     uint8_t col;
@@ -9,6 +11,9 @@ typedef struct
 } textcursor_t;
 
 void puthb(uint8_t byte);
+void puthw(uint16_t word);
+
+void clear_vga(uint8_t color);
 
 /*
     libx86 functions

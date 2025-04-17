@@ -19,3 +19,12 @@ void puthw(uint16_t word)
     puthb(high);
     puthb(low);
 }
+
+void clear_vga(uint8_t color)
+{
+    uint16_t blank = (color << 8) | ' ';
+    for (int i = 0; i < 80 * 25; i++) {
+        VGA_MEMORY[i] = blank;
+    }
+    format_tty(color);
+}
