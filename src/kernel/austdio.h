@@ -12,8 +12,11 @@ typedef struct
 
 void puthb(uint8_t byte);
 void puthw(uint16_t word);
+void puthd(uint32_t dword);
 
 void clear_vga(uint8_t color);
+
+void putbr(void);
 
 /*
     libx86 functions

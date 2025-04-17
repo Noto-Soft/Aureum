@@ -3,41 +3,28 @@
 
 void kernel(void)
 {
-    format_tty(0x0f);
-    puts("Greetings, Planet in which I reside on!\r\n");
-
-    format_tty(0x02);
-    puts("0x");
-    puthb(0x42);
-    puts("\r\n");
-
-    format_tty(0x08);
-    puts("hey just so you know,,, you're in input mode ^^\r\npress esc to exit the input mode\r\nOK thanks for listening :)\r\n");
-
-    uint8_t key;
-
     format_tty(0x07);
 
-    while ((key = wait_key()) != 0x01) {
-        textcursor_t* cursor = get_cursor();
-        uint8_t ascii = convert_scancode_to_ascii(key);
-        if (ascii == 0x0a) {
-            puts("\r\n");
-        } else if (ascii == 0x08) {
-            puts("\b \b");
-        } else if (ascii == '=') {
-            if (cursor->row > 0) set_cursor(cursor->row - 1, cursor->col);
-        } else if (ascii == '[') {
-            if (cursor->col > 0) set_cursor(cursor->row, cursor->col - 1);
-        } else if (ascii == ']') {
-            if (cursor->col < 79) set_cursor(cursor->row, cursor->col + 1);
-        } else if (ascii == '\'') {
-            if (cursor->row < 24) set_cursor(cursor->row + 1, cursor->col);
-        } else {
-            putc(ascii);
-        }
+    puts("Aureum Kernel is testing memory\r\n");
+
+    uint32_t mem_size;
+    uint8_t* address = (uint8_t*)0x100000;
+
+    uint8_t old;
+
+    puts("0x");
+
+    while ((uint32_t)address < 0xf00000) {
+        old = *address;
+        *address = 0xaa;
+        if (*address != 0xaa) break;
+        *address = 0x55;
+        if (*address != 0x55) break;
+        *address = old;
+        address++;
+        mem_size++;
     }
 
-    format_tty(0x05);
-    puts("\r\nSalutations, Planet in which I reside on!\r\n");
+    puthd(mem_size);
+    puts("\r\nDone!\r\n");
 }

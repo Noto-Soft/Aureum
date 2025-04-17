@@ -70,7 +70,7 @@ putcf:
     mov bl, [ebp + 8]
     mov bh, [ebp + 12]
 
-    mov [last_format], bh
+    mov [tty_format], bh
 
     cmp bl, 0x0d
     je .carriagereturn
@@ -199,7 +199,7 @@ putc:
     push ebx
 
     mov bl, [ebp + 8]
-    mov bh, [last_format]
+    mov bh, [tty_format]
 
     cmp bl, 0x0d
     je .carriagereturn
@@ -401,18 +401,18 @@ format_tty:
 
     mov ah, [ebp + 8]
 
-    mov [last_format], ah
+    mov [tty_format], ah
 
     mov esp, ebp
     pop ebp
     ret
 
-global get_last_format
-get_last_format:
+global get_tty_format
+get_tty_format:
     push ebp
     mov ebp, esp
 
-    movzx eax, byte [last_format]
+    movzx eax, byte [tty_format]
 
     mov esp, ebp
     pop ebp
@@ -421,6 +421,6 @@ get_last_format:
 section .data
 cursor: db 0, 0
 hex_digits: db "0123456789ABCDEF"
-last_format: db 0x07
+tty_format: db 0x07
 
 section .note.GNU-stack
