@@ -1,5 +1,7 @@
 bits 32
 
+section .text
+
 extern kernel
 
 extern format_tty
@@ -10,6 +12,8 @@ extern puthw
 global start
 start:
     jmp main
+
+section .text.entry
 
 main:
     push 0x07

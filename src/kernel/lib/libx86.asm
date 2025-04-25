@@ -1,5 +1,7 @@
 bits 32
 
+section .text
+
 global set_cursor
 set_cursor:
     push ebp

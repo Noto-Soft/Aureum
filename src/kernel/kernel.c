@@ -1,7 +1,7 @@
-#include "austdio.h"
-#include "austdkb.h"
-#include "audelay.h"
-#include "aumath.h"
+#include "lib/austdio.h"
+#include "lib/austdkb.h"
+#include "lib/audelay.h"
+#include "lib/aumath.h"
 
 uint32_t mem_test(void)
 {
@@ -26,7 +26,7 @@ uint32_t mem_test(void)
     return mem_size;
 }
 
-void kernel(void)
+void __attribute__((section(".text.entry"))) kernel(void)
 {
     format_tty(0x07);
 

@@ -6,7 +6,7 @@ SECTIONS
 {
     . = phys;
 
-    .entry              : { __entry_start = .;      *(.entry)   }
+    .text.entry              : { __text_entry_start = .;      *(.text.entry)   }
     .text               : { __text_start = .;       *(.text)    }
     .data               : { __data_start = .;       *(.data)    }
     .rodata             : { __rodata_start = .;     *(.rodata)  }
