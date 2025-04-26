@@ -2,6 +2,8 @@
 #include "lib/austdkb.h"
 #include "lib/audelay.h"
 #include "lib/aumath.h"
+#include "lib/austring.h"
+#include <stdbool.h>
 
 uint32_t mem_test(void)
 {
@@ -37,13 +39,44 @@ void __attribute__((section(".text.entry"))) kernel(void)
     puthd(mem_size);
     puts("\r\nDone!\r\n");
 
-    putbr();
-
-    puts("Au$ ");
-    
     uint8_t key;
-    while ((key = wait_key()) != 0x01) {
-        putc(convert_scancode_to_ascii(key));
+    unsigned char ascii;
+
+    char command[256];
+    uint8_t index;
+
+    while (1) {
+        putbr();
+        puts("Au$ ");    
+        
+        index = 0;
+        command[0] = '\0';
+        while ((key = wait_key()) != 0x01) {
+            unsigned char ascii = convert_scancode_to_ascii(key);
+            
+            if (ascii == 0x09 || ascii == 0x00) {
+                continue;
+            } else if (ascii == 0x0a) {
+                break;
+            } else if (ascii == 0x08) {
+                if (index > 0) {
+                    command[index] = '\0';
+                    index--;
+                    puts("\b \b");
+                }
+                continue;
+            } else if (!(index < 255)) {
+                continue;
+            }
+            putc(ascii);
+            command[index] = ascii;
+            command[index + 1] = '\0';
+            index++;
+        }
+
+        if (strcmp(command, "exit") == 0) {
+            break;
+        }
     }
 
     puts("\r\nGoodbye\r\n");
