@@ -91,3 +91,6 @@ always:
 	mkdir -p build/libc
 	mkdir -p build/libasm
 	mkdir -p build/asm
+
+clean:
+	rm -rf build
