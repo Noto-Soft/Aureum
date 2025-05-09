@@ -63,7 +63,7 @@ main.bits32:
     mov ss, eax
     mov esp, 0x90000
     
-    call 0x7e00
+    jmp 0x7e00
 
 halt.bits32:
     hlt

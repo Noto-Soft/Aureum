@@ -24,9 +24,7 @@ main:
     call puts
     add esp, 4
 
-    call kernel
-
-    ret
+    jmp kernel
 
 section .data
 

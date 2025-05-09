@@ -28,7 +28,7 @@ uint32_t mem_test(void)
     return mem_size;
 }
 
-void __attribute__((section(".text.entry"))) kernel(void)
+void __attribute__((section(".text.entry"), noreturn)) kernel(void)
 {
     format_tty(0x07);
 
@@ -80,4 +80,6 @@ void __attribute__((section(".text.entry"))) kernel(void)
     }
 
     puts("\r\nGoodbye\r\n");
+
+    while (true) {}
 }
