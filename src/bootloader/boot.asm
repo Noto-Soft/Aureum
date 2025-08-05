@@ -1,3 +1,4 @@
+cpu 686
 org 0x7c00
 bits 16
 
@@ -5,10 +6,29 @@ start:
     jmp main.bits16
 
 gdt_start:
-    dq 0x0000000000000000
-    dq 0x00CF9A000000FFFF
-    dq 0x00CF92000000FFFF
+    dq 0x0000000000000000          ; Null descriptor
+
+gdt_code:                          ; Code segment descriptor
+    dw 0xFFFF                      ; Limit low
+    dw 0x0000                      ; Base low
+    db 0x00                        ; Base middle
+    db 10011010b                   ; Access byte
+    db 11001111b                   ; Flags and limit high
+    db 0x00                        ; Base high
+
+gdt_data:                          ; Data segment descriptor
+    dw 0xFFFF
+    dw 0x0000
+    db 0x00
+    db 10010010b
+    db 11001111b
+    db 0x00
+
 gdt_end:
+
+gdt_descriptor:
+    dw gdt_end - gdt_start - 1
+    dd gdt_start
 
 gdt_ptr:
     dw gdt_end - gdt_start - 1
@@ -26,10 +46,6 @@ main.bits16:
 
     mov ah, 0
     mov al, 3
-    int 0x10
-
-    mov ah, 1
-    mov cx, 0x7
     int 0x10
 
     mov ah, 2
